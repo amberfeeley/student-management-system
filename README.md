@@ -45,9 +45,13 @@ As issues are completed and merged into the main branch, we may need to rebase t
 - Example messages:
     - `Added feature to track student grades`
     - `Fixed bug in student record update`
+ 
+![Screenshot 2024-11-02 at 9 08 05 PM](https://github.com/user-attachments/assets/48028d7d-6ad3-48bf-9494-89a1d14ebf0e)
+
 ### Pushes
 - **Definition**: Pushing sends your committed changes to the remote repository on GitHub.
 - **When to Push**: Push changes when you’ve completed a feature, fixed a bug, or want to share your progress with the team.
+![Screenshot 2024-11-02 at 9 08 16 PM](https://github.com/user-attachments/assets/978e5b0c-09a4-49da-b780-07739eb0ba18)
 
 ## Issues
 I created the issues based on the information we were given about the assignment. We can add more issues as needed or break issues down into smaller chunks.
@@ -60,3 +64,5 @@ Please be sure to create a new branch to work on the issue. You will want to mak
 You can see which branch you are checked out on in the bottom left-hand corner of VSCode.
 ![Screenshot 2024-11-02 at 8 50 03 PM](https://github.com/user-attachments/assets/62708b62-4ffe-4012-8f1b-8135d11040e5)
 After an issue is finished, make a commit and push the issue so that it can be merged with the main branch. Git will keep track of the commits for version control.
+Commits can be reviewed by other teammembers before being saved to main.
+![Screenshot 2024-11-02 at 9 15 36 PM](https://github.com/user-attachments/assets/16884468-7e3e-4a5c-9a50-49f20da4fc00)

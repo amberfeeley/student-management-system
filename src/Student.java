@@ -42,11 +42,11 @@ public class Student
     {
         return studentID;
     }
-    public String setName()
+    public String getName()
     {
         return name;
     }
-    public int setGrade()
+    public int getGrade()
     {
         return grade;
     }

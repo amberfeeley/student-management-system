@@ -1,5 +1,8 @@
 public class StudentMgmtSystem
 {
-    // TODO:
-    // may contain main
+    public static void main(String[] args)
+    {
+        // TODO
+        // MAIN STUFF
+    }
 }

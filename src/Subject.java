@@ -15,9 +15,10 @@ public class Subject {
      * @param name stores the subject name
      * @param grade stores the subject grade
      */
-    public Subject(String name, int grade) {
+   // Constructor
+    public Subject(String name, double grade) {
         this.name = name;
-        this.grade = grade;
+        setGrade(grade); 
     }
 
     // Setter and getter methods
@@ -25,8 +26,13 @@ public class Subject {
         this.name = name;
     }
 
-    public void setGrade(int grade) {
-        this.grade = grade;
+    // Setter for grade with validation
+    public void setGrade(double grade) {
+        if (grade >= 0 && grade <= 100) {
+            this.grade = grade
+        } else {
+            System.out.println("Inavlid grdae. Please eneter a grade between 0 and 100.");
+        }
     }
 
     public String getName() {
@@ -35,5 +41,10 @@ public class Subject {
 
     public int getGrade() {
         return grade;
+    }
+
+    // toString Method
+    public String toString() {
+        return "Subject: " + name + ", Grade: " + grade;
     }
 }

@@ -1,6 +1,6 @@
 public class Subject {
     private String name;
-    private int grade;
+    private double grade;
 
     /**
      * No-arg constructor initializes subject fields to be empty
@@ -18,7 +18,7 @@ public class Subject {
    // Constructor
     public Subject(String name, double grade) {
         this.name = name;
-        setGrade(grade); 
+        setGrade(grade);
     }
 
     // Setter and getter methods
@@ -29,7 +29,7 @@ public class Subject {
     // Setter for grade with validation
     public void setGrade(double grade) {
         if (grade >= 0 && grade <= 100) {
-            this.grade = grade
+            this.grade = grade;
         } else {
             System.out.println("Inavlid grdae. Please eneter a grade between 0 and 100.");
         }
@@ -39,7 +39,7 @@ public class Subject {
         return name;
     }
 
-    public int getGrade() {
+    public double getGrade() {
         return grade;
     }
 

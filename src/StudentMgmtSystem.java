@@ -4,6 +4,5 @@ public class StudentMgmtSystem
     {
         // TODO
         // MAIN STUFF
-        //This is a practice comment - Rachel is so confused
     }
 }

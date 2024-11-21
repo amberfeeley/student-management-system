@@ -39,7 +39,7 @@ public class StudentMgmtSystem
         System.out.println("1: Add Student");
         System.out.println("2: Track Student Grades");
         System.out.println("3: Calculate Student Grade Averages");
-        System.out.println("4: Generate Student Reports");
+        System.out.println("4: Generate Highest and Lowest Grade Student Reports");
         System.out.println("Enter any other key to exit.");
     }
 

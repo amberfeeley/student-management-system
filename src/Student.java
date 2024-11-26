@@ -74,4 +74,15 @@ public class Student
     {
         return name;
     }
+
+    public double CalculateAvgGrade()
+    {
+        int sum = 0;
+        for (int i = 0; i < numOfSubjects; i++)
+        {
+            sum += subject[i].getGrade();
+        }
+
+        return (double)sum / numOfSubjects;
+    }
 }

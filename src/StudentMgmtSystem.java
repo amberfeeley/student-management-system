@@ -2,82 +2,64 @@ import java.util.Scanner;
 
 public class StudentMgmtSystem
 {
-    public static void main(String[] args)
+    private Student[] students;
+    private int numOfStudents;
+
+    /** No arg Constructor for StudentMgmtSystem
+     * Allows a maximum of 100 students
+     * initializes student count to 0
+    */
+    public StudentMgmtSystem()
     {
-        Scanner keyboard = new Scanner(System.in);
-        int input;
+        students = new Student[100];
+        numOfStudents = 0;
+    }
 
-        NavMenu();
-
-        // Add in try catch blocks for input handling
-        input = keyboard.nextInt();
-        switch(input)
-        {   
-            // These methods may be part of other objects
-            case 1:
-                AddStudent();
+    public void AddStudent(String name)
+    {
+        students[numOfStudents] = new Student();
+    }
+    public void AddStudent(int id, String studentName, String subjectName, int grade)
+    {
+        students[numOfStudents] = new Student(id, studentName, subjectName, grade);
+    }
+    public void RemoveStudent(String name)
+    {
+        for (int i = 0; i < numOfStudents; i++)
+        {
+            if (students[i].getName() == name)
+            {
+                for (int j = i+1; j < numOfStudents; j++)
+                {
+                    students[i] = students[j];
+                }
+                numOfStudents--;
                 break;
-            case 2:
-                RemoveStudent();
-                break;
-            case 3:
-                UpdateStudentRecords();
-                break;
-            case 4: 
-                TrackStudentGrades();
-                break;
-            case 5:
-                CalculateAvgGrades();
-                break;
-            case 6:
-                GenerateReports();
-                break;
-            default:
-                ExitMessage();
-                break;
+            }
+            else if (i >= numOfStudents)
+            {
+                System.out.println("Unable to locate student to remove.");
+            }
         }
     }
-    
-    public static void NavMenu()
-    {
-        System.out.println("Welcome to the Student Management System!");
-        System.out.println("Navigate by entering the corresponding key.");
-        System.out.println("1: Add Student");
-        System.out.println("2: Remove Student");
-        System.out.println("3: Update Student Records");
-        System.out.println("4: Track Student Grades");
-        System.out.println("5: Calculate Student Grade Averages");
-        System.out.println("6: Generate Highest and Lowest Grade Student Reports");
-        System.out.println("Enter any other key to exit.");
-    }
-
-    public static void ExitMessage()
-    {
-        System.out.println("Thank you for exiting the Student Management System.");
-    }
-
-    // Temp holders for methods
-    public static void AddStudent()
+    public void UpdateStudentRecords()
     {
         ;
     }
-    public static void RemoveStudent()
+    public void TrackStudentGrades()
     {
         ;
     }
-    public static void UpdateStudentRecords()
+    public double CalculateAvgGradeForClass()
     {
-        ;
+        double sum = 0;
+        for (int i = 0; i < numOfStudents; i++)
+        {
+            sum += students[i].CalculateAvgGrade();
+        };
+        return sum / numOfStudents;
     }
-    public static void TrackStudentGrades()
-    {
-        ;
-    }
-    public static void CalculateAvgGrades()
-    {
-        ;
-    }
-    public static void GenerateReports()
+    public void GenerateReports()
     {
         ;
     }

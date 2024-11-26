@@ -2,7 +2,7 @@ public class Student
 {
     private int studentID;
     private String name;
-    private Subject[] subject;
+    private Subject[] subjects;
     private int numOfSubjects;
 
     /**
@@ -13,7 +13,7 @@ public class Student
         studentID = 0;
         name = "";
         numOfSubjects = 0;
-        subject = new Subject[100]; // Student cannot have more than 100 classes
+        subjects = new Subject[100]; // Student cannot have more than 100 classes
     }
     /**
      * Constructor with arguments to initialize student
@@ -25,16 +25,18 @@ public class Student
     {
         studentID = id;
         this.name = name;
-        subject[numOfSubjects] = addSubject(subjectName, grade);
+        subjects = new Subject[100];
+        numOfSubjects = 0;
+        addSubject(subjectName, grade);
     }
 
     public void setID(int id)
     {
         studentID = id;
     }
-    public void setName(String n)
+    public void setName(String name)
     {
-        name = n;
+        this.name = name;
     }
     /**
      * sets student grade by a given subject
@@ -45,28 +47,32 @@ public class Student
     {
         for (int i = 0; i < numOfSubjects; i++)
         {
-            if (this.subject[i].getName() == subjectName)
+            if (subjects[i].getName().equals(subjectName))
             {
-                this.subject[i].setGrade(grade);
-                break;
-            }
-            else if (i >= numOfSubjects)
-            {
-                System.out.println("Subject not found for " + name + ". Please verify student enrollment in " + subjectName);
+                subjects[i].setGrade(grade);
+                return;
             }
         }
+        System.out.println("Subject not found for " + name + ". Please verify student enrollment in " + subjectName);
     }
     /**
      * Adds subject to student and maintains number of subjects count
      * @param subjectName sets subject name
      * @param grade stores student's grade in subject
      */
-    public Subject addSubject(String subjectName, int grade)
+    public void addSubject(String subjectName, int grade)
     {
-        numOfSubjects++;
-        return new Subject(subjectName, grade);
+        if (numOfSubjects < 100)
+        {
+            subjects[numOfSubjects] = new Subject(subjectName, grade);
+            numOfSubjects++;
+        }
+        else
+        {
+            System.out.println("Unable to add subject. Student cannot have more than 100 subjects.");
+        }
     }
-    public int getID(int id)
+    public int getID()
     {
         return studentID;
     }
@@ -77,12 +83,34 @@ public class Student
 
     public double CalculateAvgGrade()
     {
-        int sum = 0;
-        for (int i = 0; i < numOfSubjects; i++)
+        if (numOfSubjects == 0)
         {
-            sum += subject[i].getGrade();
+            System.out.println(" Unable to calculate " + name + " Average. No grades entered.");
+            return 0;
+        }
+        else 
+        {
+            int sum = 0;
+            for (int i = 0; i < numOfSubjects; i++)
+            {
+                sum += subjects[i].getGrade();
+            }
+
+            return (double)sum / numOfSubjects;
+        }
+    }
+
+    // toString Method
+    public String toString() {
+        StringBuilder studentInfo = new StringBuilder();
+        studentInfo.append("Student Name: ").append(name).append("\n");
+        studentInfo.append("Student ID: ").append(studentID).append("\n");
+        studentInfo.append("Subjects and Grades: \n");
+
+        for (int i = 0; i < numOfSubjects; i++) {
+            studentInfo.append(subjects[i].toString()).append("\n");
         }
 
-        return (double)sum / numOfSubjects;
+        return studentInfo.toString();
     }
 }

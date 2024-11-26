@@ -27,9 +27,6 @@ public class SMSApp {
                 TrackStudentGrades();
                 break;
             case 5:
-                CalculateAvgGrades();
-                break;
-            case 6:
                 GenerateReports();
                 break;
             default:
@@ -60,10 +57,17 @@ public class SMSApp {
     public static void AddStudent()
     {
         System.out.println("You have chosen to add a student.");
+        // get user input for switch
+            // option to add student with grades
+            // option to add student without grades
+            // call sms.AddStudent(method with correct number of parameters)
+        // get name/id and possibly subject/grade
     }
     public static void RemoveStudent()
     {
         ;
+        // get user input for student to remove
+        // sms.remove(student);
     }
     public static void UpdateStudentRecords()
     {
@@ -71,14 +75,14 @@ public class SMSApp {
     }
     public static void TrackStudentGrades()
     {
-        ;
+        ; // I still dont know what this is supposed to do
+        // maybe just the student's toString?????
     }
-    public static void CalculateAvgGrades()
-    {
-        ;
-    }
+
+    // Generates report with Avg class grade and highest/lowest performers
     public static void GenerateReports()
     {
-        ;
+        // add outfile?
+        sms.GenerateReports();
     }
 }

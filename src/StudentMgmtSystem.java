@@ -17,50 +17,106 @@ public class StudentMgmtSystem
 
     public void AddStudent(String name)
     {
-        students[numOfStudents] = new Student();
+        if (numOfStudents < 100)
+        {
+            students[numOfStudents] = new Student();
+            numOfStudents++;
+        }
+        else
+        {
+            System.out.println("Unable to add more students.");
+        }
     }
     public void AddStudent(int id, String studentName, String subjectName, int grade)
     {
-        students[numOfStudents] = new Student(id, studentName, subjectName, grade);
+        if (numOfStudents < 100)
+        {
+            students[numOfStudents] = new Student(id, studentName, subjectName, grade);
+            numOfStudents++;
+        }
+        else
+        {
+            System.out.println("Unable to add more students.");
+        }
     }
     public void RemoveStudent(String name)
     {
         for (int i = 0; i < numOfStudents; i++)
         {
-            if (students[i].getName() == name)
+            if (students[i].getName().equals(name))
             {
+                // shift array over by one
                 for (int j = i+1; j < numOfStudents; j++)
                 {
-                    students[i] = students[j];
+                    students[j-1] = students[j];
                 }
+                // clear last spot
+                students[numOfStudents - 1] = null;
                 numOfStudents--;
-                break;
-            }
-            else if (i >= numOfStudents)
-            {
-                System.out.println("Unable to locate student to remove.");
+                System.out.println("Student " + name + " has been removed.");
+                return;
             }
         }
+        System.out.println("Unable to locate " + name + " to delete.");
     }
-    public void UpdateStudentRecords()
+    public void UpdateStudentRecords(String name)
     {
-        ;
+        for (int i = 0; i < numOfStudents; i++)
+        {
+            if (students[i].getName().equals(name))
+            {
+                // get input from SMSapp about what to update
+                // pass choice into here
+                // switch statement about updating name, id, grades, or all
+            }
+        }
+        System.out.println("Unable to locate " + name + " to update records.");
     }
     public void TrackStudentGrades()
     {
         ;
+        // I have no idea what this is supposed to be used for
     }
-    public double CalculateAvgGradeForClass()
-    {
-        double sum = 0;
-        for (int i = 0; i < numOfStudents; i++)
-        {
-            sum += students[i].CalculateAvgGrade();
-        };
-        return sum / numOfStudents;
-    }
+    
     public void GenerateReports()
     {
-        ;
+        if (numOfStudents == 0)
+        {
+            System.out.println("Unable to calculate average. No students in the system.");
+            return;
+        }
+        else 
+        {
+            double highestGrade = students[0].CalculateAvgGrade();
+            Student highestPerformer = students[0];
+            double lowest = students[0].CalculateAvgGrade();
+            Student lowestPerformer = students[0];
+            double current;
+            double avg;
+            double sum = 0;
+
+            for (int i = 0; i < numOfStudents; i++)
+            {
+                current = students[i].CalculateAvgGrade();
+                sum += current;
+                if (highestGrade < current)
+                {
+                    highestGrade = current;
+                    highestPerformer = students[i];
+                }
+                else if (lowest > current)
+                {
+                    lowest = current;
+                    lowestPerformer = students[i];
+                }
+            };
+            avg = sum / numOfStudents;
+
+            // This should be output in a file
+            System.out.println("Class Report:");
+            System.out.println("Average grade: " + avg);
+            System.out.println("The highest performer is " + highestPerformer.toString());
+            System.out.println("The lowest performer is " + lowestPerformer.toString());
+        }
     }
 }

@@ -1,6 +1,6 @@
 public class Subject {
     private String name;
-    private double grade;
+    private int grade;
 
     /**
      * No-arg constructor initializes subject fields to be empty
@@ -16,7 +16,7 @@ public class Subject {
      * @param grade stores the subject grade
      */
    // Constructor
-    public Subject(String name, double grade) {
+    public Subject(String name, int grade) {
         this.name = name;
         setGrade(grade);
     }
@@ -27,7 +27,7 @@ public class Subject {
     }
 
     // Setter for grade with validation
-    public void setGrade(double grade) {
+    public void setGrade(int grade) {
         if (grade >= 0 && grade <= 100) {
             this.grade = grade;
         } else {
@@ -39,7 +39,7 @@ public class Subject {
         return name;
     }
 
-    public double getGrade() {
+    public int getGrade() {
         return grade;
     }
 

@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class StudentMgmtSystem
 {
     private Student[] students;
@@ -72,12 +70,17 @@ public class StudentMgmtSystem
         }
         System.out.println("Unable to locate " + name + " to update records.");
     }
-    public void TrackStudentGrades()
+    public void TrackStudentGrades(String name)
     {
-        ;
-        // I have no idea what this is supposed to be used for
+        for (int i = 0; i < numOfStudents; i++)
+        {
+            if (students[i].getName().equals(name))
+            {
+                System.out.println(students[i].toString());
+            }
+        }
+        System.out.println("Unable to locate " + name + ".");
     }
-    
     public void GenerateReports()
     {
         if (numOfStudents == 0)

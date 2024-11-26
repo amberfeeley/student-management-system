@@ -4,6 +4,9 @@ public class StudentMgmtSystem
 {
     public static void main(String[] args)
     {
+        // Allows a maximum of 100 students
+        Student[] studentList = new Student[100];
+        int numOfStudents = 0;
         Scanner keyboard = new Scanner(System.in);
         int input;
 
@@ -37,7 +40,7 @@ public class StudentMgmtSystem
                 break;
         }
     }
-    
+
     public static void NavMenu()
     {
         System.out.println("Welcome to the Student Management System!");

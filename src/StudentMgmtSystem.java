@@ -11,17 +11,17 @@ public class StudentMgmtSystem
     */
     public StudentMgmtSystem()
     {
-        studentList = new Student[100];
+        students = new Student[100];
         numOfStudents = 0;
     }
 
     public void AddStudent(String name)
     {
-        student[numOfStudents] = new Student();
+        students[numOfStudents] = new Student();
     }
-    public void AddStudent(String name)
+    public void AddStudent(int id, String studentName, String subjectName, int grade)
     {
-        
+        students[numOfStudents] = new Student(id, studentName, subjectName, grade);
     }
     public void RemoveStudent(String name)
     {

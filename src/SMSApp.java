@@ -60,6 +60,10 @@ public class SMSApp {
     public static void AddStudent()
     {
         System.out.println("You have chosen to add a student.");
+        // option to add student with grades
+        // sms.AddStudent();
+        // option to add student without grades
+        // ???
     }
     public static void RemoveStudent()
     {

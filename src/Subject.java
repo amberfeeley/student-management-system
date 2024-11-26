@@ -31,7 +31,7 @@ public class Subject {
         if (grade >= 0 && grade <= 100) {
             this.grade = grade;
         } else {
-            System.out.println("Inavlid grdae. Please eneter a grade between 0 and 100.");
+            System.out.println("Invalid grdae. Please eneter a grade between 0 and 100.");
         }
     }
 

@@ -25,6 +25,7 @@ public class StudentMgmtSystem
             System.out.println("Unable to add more students.");
         }
     }
+    
     public void AddStudent(int id, String studentName, String subjectName, int grade)
     {
         if (numOfStudents < 100)
@@ -37,6 +38,7 @@ public class StudentMgmtSystem
             System.out.println("Unable to add more students.");
         }
     }
+
     public void RemoveStudent(String name)
     {
         for (int i = 0; i < numOfStudents; i++)
@@ -57,6 +59,7 @@ public class StudentMgmtSystem
         }
         System.out.println("Unable to locate " + name + " to delete.");
     }
+
     public void UpdateStudentRecords(String name)
     {
         for (int i = 0; i < numOfStudents; i++)
@@ -70,6 +73,7 @@ public class StudentMgmtSystem
         }
         System.out.println("Unable to locate " + name + " to update records.");
     }
+
     public void TrackStudentGrades(String name)
     {
         for (int i = 0; i < numOfStudents; i++)
@@ -81,6 +85,7 @@ public class StudentMgmtSystem
         }
         System.out.println("Unable to locate " + name + ".");
     }
+    
     public void GenerateReports()
     {
         if (numOfStudents == 0)

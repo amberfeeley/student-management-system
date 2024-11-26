@@ -25,16 +25,18 @@ public class Student
     {
         studentID = id;
         this.name = name;
-        subject[numOfSubjects] = addSubject(subjectName, grade);
+        subject = new Subject[100];
+        numOfSubjects = 0;
+        addSubject(subjectName, grade);
     }
 
     public void setID(int id)
     {
         studentID = id;
     }
-    public void setName(String n)
+    public void setName(String name)
     {
-        name = n;
+        this.name = name;
     }
     /**
      * sets student grade by a given subject
@@ -45,26 +47,32 @@ public class Student
     {
         for (int i = 0; i < numOfSubjects; i++)
         {
-            if (this.subject[i].getName() == subjectName)
+            if (subject[i].getName().equals(subjectName))
             {
-                this.subject[i].setGrade(grade);
-                break;
-            }
-            else if (i >= numOfSubjects)
-            {
-                System.out.println("Subject not found for " + name + ". Please verify student enrollment in " + subjectName);
+                subject[i].setGrade(grade);
+                return;
             }
         }
+        
+        System.out.println("Subject not found for " + name + ". Please verify student enrollment in " + subjectName);
     }
     /**
      * Adds subject to student and maintains number of subjects count
      * @param subjectName sets subject name
      * @param grade stores student's grade in subject
      */
-    public Subject addSubject(String subjectName, int grade)
+    public void addSubject(String subjectName, int grade)
     {
-        numOfSubjects++;
-        return new Subject(subjectName, grade);
+        if (numOfSubjects < 100)
+        {
+            subject[numOfSubjects] = new Subject(subjectName, grade);
+
+            numOfSubjects++;
+        }
+        else
+        {
+            System.out.println("Unable to add subject. Student cannot have more than 100 subjects.");
+        }
     }
     public int getID(int id)
     {

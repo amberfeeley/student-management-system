@@ -50,9 +50,14 @@ public class StudentMgmtSystem
     {
         ;
     }
-    public void CalculateAvgGrades()
+    public double CalculateAvgGradeForClass()
     {
-        ;
+        double sum = 0;
+        for (int i = 0; i < numOfStudents; i++)
+        {
+            sum += students[i].CalculateAvgGrade();
+        };
+        return sum / numOfStudents;
     }
     public void GenerateReports()
     {

@@ -13,12 +13,13 @@ public class StudentMgmtSystem
         numOfStudents = 0;
     }
 
-    public void AddStudent(String name)
+    public void AddStudent(int id, String name)
     {
         if (numOfStudents < 100)
         {
-            students[numOfStudents] = new Student();
+            students[numOfStudents] = new Student(id, name);
             numOfStudents++;
+            System.out.println("Student " + name + " has been added.");
         }
         else
         {
@@ -32,6 +33,7 @@ public class StudentMgmtSystem
         {
             students[numOfStudents] = new Student(id, studentName, subjectName, grade);
             numOfStudents++;
+            System.out.println("Student " + studentName + " has been added.");
         }
         else
         {
@@ -60,18 +62,23 @@ public class StudentMgmtSystem
         System.out.println("Unable to locate " + name + " to delete.");
     }
 
-    public void UpdateStudentRecords(String name)
+    /**
+     * Updates student records
+     * @param name finds student by name
+     * @param choice to choose choice in switch
+     */
+    public void UpdateStudentRecords(int id, String studentName, String subjectName, int grade, String updatedName)
     {
         for (int i = 0; i < numOfStudents; i++)
         {
-            if (students[i].getName().equals(name))
+            if (students[i].getName().equals(studentName))
             {
-                // get input from SMSapp about what to update
-                // pass choice into here
-                // switch statement about updating name, id, grades, or all
+                students[i].setID(id);
+                students[i].setName(updatedName);
+                students[i].setSubjectGrade(subjectName, grade);
             }
         }
-        System.out.println("Unable to locate " + name + " to update records.");
+        System.out.println("Unable to locate " + studentName + " to update records.");
     }
 
     public void TrackStudentGrades(String name)

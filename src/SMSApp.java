@@ -83,6 +83,7 @@ public class SMSApp {
         {
             System.out.println("Enter student name:");
             name = keyboard.nextLine(); //Used nextLine in case there are spaces in the name
+            keyboard.nextLine();
             id = keyboard.nextInt();
             keyboard.nextLine(); //I read its a good idea to add an extra nextline after a nextInt. Something about clearing some sort of buffer to avoid issues.
         }
@@ -90,6 +91,7 @@ public class SMSApp {
         {
             System.out.println("Invalid input, please try again.");
             keyboard.nextLine();
+            return; // Exits method given invalid input
         }
 
         //Switch statement to determine which method to use
@@ -117,12 +119,14 @@ public class SMSApp {
                     System.out.println("Invalid input, please try again.");
                     keyboard.nextLine();
                 }
+
             default:
                 System.out.println("Invalid option. Returning to main menu.");
                 break;
         }
       
     }
+    
     public static void RemoveStudent()
     { 
         try
@@ -138,9 +142,8 @@ public class SMSApp {
             System.out.println("Invalid input, please try again.");
             keyboard.nextLine();
         }
-        
-
     }
+
     public static void UpdateStudentRecords()
     {
         ;

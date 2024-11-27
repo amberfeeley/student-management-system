@@ -19,6 +19,7 @@ public class StudentMgmtSystem
         {
             students[numOfStudents] = new Student(id, name);
             numOfStudents++;
+            System.out.println("Student " + name + " has been added.");
         }
         else
         {
@@ -32,6 +33,7 @@ public class StudentMgmtSystem
         {
             students[numOfStudents] = new Student(id, studentName, subjectName, grade);
             numOfStudents++;
+            System.out.println("Student " + studentName + " has been added.");
         }
         else
         {

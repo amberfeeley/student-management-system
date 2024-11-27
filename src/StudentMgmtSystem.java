@@ -62,7 +62,12 @@ public class StudentMgmtSystem
         System.out.println("Unable to locate " + name + " to delete.");
     }
 
-    public void UpdateStudentRecords(String name)
+    /**
+     * Updates student records
+     * @param name finds student by name
+     * @param choice to choose choice in switch
+     */
+    public void UpdateStudentRecords(String name, int choice)
     {
         for (int i = 0; i < numOfStudents; i++)
         {

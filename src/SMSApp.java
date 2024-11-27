@@ -99,7 +99,6 @@ public class SMSApp {
         { 
             case 1: //student without grades
                 sms.AddStudent(id, name); //calling the AddStudent Method from Student Mgmt System file.
-                System.out.println("Student added without grades.");
                 break;
             case 2: //student with grades
                 try
@@ -111,8 +110,7 @@ public class SMSApp {
 
                     //calling method to add student with all them parameters
                     sms.AddStudent(id, name, subject, grade);
-                    System.out.println("Student entered with grades.");
-                        break;
+                    break;
                 }
                 catch (Exception e)
                 {
@@ -126,7 +124,7 @@ public class SMSApp {
         }
       
     }
-    
+
     public static void RemoveStudent()
     { 
         try
@@ -135,7 +133,6 @@ public class SMSApp {
             String name = keyboard.nextLine();
 
             sms.RemoveStudent(name);
-            System.out.println("Student has been removed.");
         }
         catch (Exception e)
         {
@@ -150,8 +147,18 @@ public class SMSApp {
     }
     public static void TrackStudentGrades()
     {
-        ; // I still dont know what this is supposed to do
-        // maybe just the student's toString?????
+        try
+        {
+            System.out.println("Enter student name: ");
+            String name = keyboard.nextLine();
+
+            sms.TrackStudentGrades(name);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Invalid input, please try again.");
+            keyboard.nextLine();
+        }
     }
 
     // Generates report with Avg class grade and highest/lowest performers

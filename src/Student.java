@@ -15,11 +15,27 @@ public class Student
         numOfSubjects = 0;
         subjects = new Subject[100]; // Student cannot have more than 100 classes
     }
+
     /**
      * Constructor with arguments to initialize student
      * @param id stores studentID
-     * @param n stores student's name
-     * @param g stores student's grade
+     * @param name stores student's name
+     * with no values for subjects and grades
+     */
+    public Student(int id, String name)
+    {
+        studentID = id;
+        this.name = name;
+        subjects = new Subject[100];
+        numOfSubjects = 0;
+    }
+
+    /**
+     * Constructor with arguments to initialize student
+     * @param id stores studentID
+     * @param name stores student's name
+     * @param subjectName stores subject's name
+     * @param grade stores student's grade
      */
     public Student(int id, String name, String subjectName, int grade)
     {

@@ -13,11 +13,11 @@ public class StudentMgmtSystem
         numOfStudents = 0;
     }
 
-    public void AddStudent(String name)
+    public void AddStudent(int id, String name)
     {
         if (numOfStudents < 100)
         {
-            students[numOfStudents] = new Student();
+            students[numOfStudents] = new Student(id, name);
             numOfStudents++;
         }
         else

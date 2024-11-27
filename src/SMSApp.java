@@ -14,6 +14,8 @@ public class SMSApp {
 
         // Add in try catch blocks for input handling
         input = keyboard.nextInt();
+        keyboard.nextLine();
+
         switch(input)
         {   
             // These methods may be part of other objects
@@ -67,10 +69,12 @@ public class SMSApp {
 
         // get user input
         int input = keyboard.nextInt();
+        keyboard.nextLine();
 
         //Switch statement to determine which method to use
         switch(input)
-        { case 1: //student without grades
+        { 
+            case 1: //student without grades
             System.out.println("Enter student name:");
             String name = keyboard.nextLine(); //Used nextLine in case thers spaces in the name
             sms.AddStudent(name); //calling the AddStudent Method from Student Mgmt System file.
@@ -101,10 +105,14 @@ public class SMSApp {
       
     }
     public static void RemoveStudent()
-    {
-        ;
-        // get user input for student to remove
-        // sms.remove(student);
+    { 
+        System.out.println("Enter student name: ");
+        String name = keyboard.nextLine();
+
+        sms.RemoveStudent(name);
+        System.out.println("Student has been removed.");
+        
+
     }
     public static void UpdateStudentRecords()
     {

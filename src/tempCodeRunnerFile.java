@@ -14,8 +14,6 @@ public class SMSApp {
 
         // Add in try catch blocks for input handling
         input = keyboard.nextInt();
-        keyboard.nextLine();
-
         switch(input)
         {   
             // These methods may be part of other objects
@@ -69,7 +67,6 @@ public class SMSApp {
 
         // get user input
         int input = keyboard.nextInt();
-        keyboard.nextLine();
 
         //Switch statement to determine which method to use
         switch(input)
@@ -111,7 +108,6 @@ public class SMSApp {
 
         sms.RemoveStudent(name);
         System.out.println("Student has been removed.");
-        
 
     }
     public static void UpdateStudentRecords()

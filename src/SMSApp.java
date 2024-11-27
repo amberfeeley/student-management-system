@@ -10,7 +10,7 @@ public class SMSApp {
         // StudentMgmtSystem sms = new StudentMgmtSystem();
         int input;
 
-        NavMenu();
+       do{ NavMenu();
 
         // Add in try catch blocks for input handling
         input = keyboard.nextInt();
@@ -37,8 +37,9 @@ public class SMSApp {
             default:
                 ExitMessage();
                 break;
-        }
-    }
+        } //end switch statement
+    } while (input >=1 && input <=6);
+} //end  main
 
     public static void NavMenu()
     {

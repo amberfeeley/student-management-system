@@ -143,7 +143,29 @@ public class SMSApp {
 
     public static void UpdateStudentRecords()
     {
-        ;
+        try
+        {
+            System.out.println("Enter current student name: ");
+            String studentName = keyboard.nextLine();
+            System.out.println("Enter updated student name: ");
+            String updatedName = keyboard.nextLine();
+            System.out.println("Enter updated student id: ");
+            int id = keyboard.nextInt();
+            keyboard.nextLine();
+            System.out.println("Enter student subject to update: ");
+            String subjectName = keyboard.nextLine();
+            System.out.println("Enter updated student grade: ");
+            int grade = keyboard.nextInt();
+            keyboard.nextLine();
+
+
+            sms.UpdateStudentRecords(id, studentName, subjectName, grade, updatedName);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Invalid input, please try again.");
+            keyboard.nextLine();
+        }
     }
     public static void TrackStudentGrades()
     {

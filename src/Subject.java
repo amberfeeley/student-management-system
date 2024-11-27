@@ -17,12 +17,12 @@ public class Subject {
      */
    // Constructor
     public Subject(String name, int grade) {
-        this.name = name;
+        setSubjectName(name);
         setGrade(grade);
     }
 
     // Setter and getter methods
-    public void setName(String name) {
+    public void setSubjectName(String name) {
         this.name = name;
     }
 
@@ -35,7 +35,7 @@ public class Subject {
         }
     }
 
-    public String getName() {
+    public String getSubjectName() {
         return name;
     }
 

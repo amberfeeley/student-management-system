@@ -63,7 +63,7 @@ public class Student
     {
         for (int i = 0; i < numOfSubjects; i++)
         {
-            if (subjects[i].getName().equals(subjectName))
+            if (subjects[i].getSubjectName().equals(subjectName))
             {
                 subjects[i].setGrade(grade);
                 return;

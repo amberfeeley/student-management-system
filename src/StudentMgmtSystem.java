@@ -67,18 +67,18 @@ public class StudentMgmtSystem
      * @param name finds student by name
      * @param choice to choose choice in switch
      */
-    public void UpdateStudentRecords(String name, int choice)
+    public void UpdateStudentRecords(int id, String studentName, String subjectName, int grade, String updatedName)
     {
         for (int i = 0; i < numOfStudents; i++)
         {
-            if (students[i].getName().equals(name))
+            if (students[i].getName().equals(studentName))
             {
-                // get input from SMSapp about what to update
-                // pass choice into here
-                // switch statement about updating name, id, grades, or all
+                students[i].setID(id);
+                students[i].setName(updatedName);
+                students[i].setSubjectGrade(subjectName, grade);
             }
         }
-        System.out.println("Unable to locate " + name + " to update records.");
+        System.out.println("Unable to locate " + studentName + " to update records.");
     }
 
     public void TrackStudentGrades(String name)

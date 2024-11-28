@@ -6,7 +6,7 @@ public class Student
     private int numOfSubjects;
 
     /**
-     * no arg constructor initializes student fields to be empty
+     * no-arg constructor initializes student fields to be empty
      */
     public Student()
     {
@@ -54,23 +54,7 @@ public class Student
     {
         this.name = name;
     }
-    /**
-     * sets student grade by a given subject
-     * @param subjectName used to locate subject
-     * @param grade stores student's grade in subject
-     */
-    public void setSubjectGrade(String subjectName, int grade)
-    {
-        for (int i = 0; i < numOfSubjects; i++)
-        {
-            if (subjects[i].getSubjectName().equals(subjectName))
-            {
-                subjects[i].setGrade(grade);
-                return;
-            }
-        }
-        System.out.println("Subject not found for " + name + ". Please verify student enrollment in " + subjectName);
-    }
+
     /**
      * Adds subject to student and maintains number of subjects count
      * @param subjectName sets subject name
@@ -88,6 +72,25 @@ public class Student
             System.out.println("Unable to add subject. Student cannot have more than 100 subjects.");
         }
     }
+  
+    /**
+     * sets student grade by a given subject
+     * @param subjectName used to locate subject
+     * @param grade stores student's grade in subject
+     */
+    public void setSubjectGrade(String subjectName, int grade)
+    {
+        for (int i = 0; i < numOfSubjects; i++)
+        {
+            if (subjects[i].getSubjectName().equals(subjectName))
+            {
+                subjects[i].setGrade(grade);
+                return;
+            }
+        }
+        System.out.println("Subject not found for " + name + ". Please verify student enrollment in " + subjectName);
+    }
+
     public int getID()
     {
         return studentID;
@@ -97,6 +100,32 @@ public class Student
         return name;
     }
 
+    // Get the number of subjects
+    public int getNumOfSubjects()
+    {
+        return numOfSubjects; // Returns the total number of subjects
+    }
+
+    // Get the name of a specific subject by index
+    public String getSubjectName(int index)
+    {
+        if (index >= 0 && index < numOfSubjects)
+        {
+            return subjects[index].getSubjectName();
+        }
+        return null; // Returns null if the index is invalid
+    }
+
+    // 🔵 Added Method: Get the grade of a specific subject by index
+    public int getSubjectGrade(int index)
+    {
+        if (index >= 0 && index < numOfSubjects)
+        {
+            return subjects[index].getGrade();
+        }
+        return -1; // Returns -1 if the index is invalid
+    }
+  
     public double CalculateAvgGrade()
     {
         if (numOfSubjects == 0)

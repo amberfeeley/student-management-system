@@ -88,6 +88,7 @@ public class StudentMgmtSystem
             if (students[i].getName().equals(name))
             {
                 System.out.println(students[i].toString());
+                return;
             }
         }
         System.out.println("Unable to locate " + name + ".");

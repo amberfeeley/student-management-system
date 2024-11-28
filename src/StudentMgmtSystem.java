@@ -1,84 +1,137 @@
-import java.util.Scanner;
-
 public class StudentMgmtSystem
 {
-    public static void main(String[] args)
+    private Student[] students;
+    private int numOfStudents;
+
+    /** No arg Constructor for StudentMgmtSystem
+     * Allows a maximum of 100 students
+     * initializes student count to 0
+    */
+    public StudentMgmtSystem()
     {
-        Scanner keyboard = new Scanner(System.in);
-        int input;
+        students = new Student[100];
+        numOfStudents = 0;
+    }
 
-        NavMenu();
-
-        // Add in try catch blocks for input handling
-        input = keyboard.nextInt();
-        switch(input)
-        {   
-            // These methods may be part of other objects
-            case 1:
-                AddStudent();
-                break;
-            case 2:
-                RemoveStudent();
-                break;
-            case 3:
-                UpdateStudentRecords();
-                break;
-            case 4: 
-                TrackStudentGrades();
-                break;
-            case 5:
-                CalculateAvgGrades();
-                break;
-            case 6:
-                GenerateReports();
-                break;
-            default:
-                ExitMessage();
-                break;
+    public void AddStudent(int id, String name)
+    {
+        if (numOfStudents < 100)
+        {
+            students[numOfStudents] = new Student(id, name);
+            numOfStudents++;
+            System.out.println("Student " + name + " has been added.");
+        }
+        else
+        {
+            System.out.println("Unable to add more students.");
         }
     }
     
-    public static void NavMenu()
+    public void AddStudent(int id, String studentName, String subjectName, int grade)
     {
-        System.out.println("Welcome to the Student Management System!");
-        System.out.println("Navigate by entering the corresponding key.");
-        System.out.println("1: Add Student");
-        System.out.println("2: Remove Student");
-        System.out.println("3: Update Student Records");
-        System.out.println("4: Track Student Grades");
-        System.out.println("5: Calculate Student Grade Averages");
-        System.out.println("6: Generate Highest and Lowest Grade Student Reports");
-        System.out.println("Enter any other key to exit.");
+        if (numOfStudents < 100)
+        {
+            students[numOfStudents] = new Student(id, studentName, subjectName, grade);
+            numOfStudents++;
+            System.out.println("Student " + studentName + " has been added.");
+        }
+        else
+        {
+            System.out.println("Unable to add more students.");
+        }
     }
 
-    public static void ExitMessage()
+    public void RemoveStudent(String name)
     {
-        System.out.println("Thank you for exiting the Student Management System.");
+        for (int i = 0; i < numOfStudents; i++)
+        {
+            if (students[i].getName().equals(name))
+            {
+                // shift array over by one
+                for (int j = i+1; j < numOfStudents; j++)
+                {
+                    students[j-1] = students[j];
+                }
+                // clear last spot
+                students[numOfStudents - 1] = null;
+                numOfStudents--;
+                System.out.println("Student " + name + " has been removed.");
+                return;
+            }
+        }
+        System.out.println("Unable to locate " + name + " to delete.");
     }
 
-    // Temp holders for methods
-    public static void AddStudent()
+    /**
+     * Updates student records
+     * @param name finds student by name
+     * @param choice to choose choice in switch
+     */
+    public void UpdateStudentRecords(int id, String studentName, String subjectName, int grade, String updatedName)
     {
-        ;
+        for (int i = 0; i < numOfStudents; i++)
+        {
+            if (students[i].getName().equals(studentName))
+            {
+                students[i].setID(id);
+                students[i].setName(updatedName);
+                students[i].setSubjectGrade(subjectName, grade);
+            }
+        }
+        System.out.println("Unable to locate " + studentName + " to update records.");
     }
-    public static void RemoveStudent()
+
+    public void TrackStudentGrades(String name)
     {
-        ;
+        for (int i = 0; i < numOfStudents; i++)
+        {
+            if (students[i].getName().equals(name))
+            {
+                System.out.println(students[i].toString());
+            }
+        }
+        System.out.println("Unable to locate " + name + ".");
     }
-    public static void UpdateStudentRecords()
+    
+    public void GenerateReports()
     {
-        ;
-    }
-    public static void TrackStudentGrades()
-    {
-        ;
-    }
-    public static void CalculateAvgGrades()
-    {
-        ;
-    }
-    public static void GenerateReports()
-    {
-        ;
+        if (numOfStudents == 0)
+        {
+            System.out.println("Unable to calculate average. No students in the system.");
+            return;
+        }
+        else 
+        {
+            double highestGrade = students[0].CalculateAvgGrade();
+            Student highestPerformer = students[0];
+            double lowest = students[0].CalculateAvgGrade();
+            Student lowestPerformer = students[0];
+            double current;
+            double avg;
+            double sum = 0;
+
+            for (int i = 0; i < numOfStudents; i++)
+            {
+                current = students[i].CalculateAvgGrade();
+                sum += current;
+                if (highestGrade < current)
+                {
+                    highestGrade = current;
+                    highestPerformer = students[i];
+                }
+                else if (lowest > current)
+                {
+                    lowest = current;
+                    lowestPerformer = students[i];
+                }
+            };
+            avg = sum / numOfStudents;
+
+            // This should be output in a file
+            System.out.println("Class Report:");
+            System.out.println("Average grade: " + avg);
+            System.out.println("The highest performer is " + highestPerformer.toString());
+            System.out.println("The lowest performer is " + lowestPerformer.toString());
+        }
     }
 }

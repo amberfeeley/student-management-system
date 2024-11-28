@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class SMSApp {
@@ -220,5 +222,35 @@ public class SMSApp {
     {
         // add outfile?
         sms.GenerateReports();
+    }
+
+    // Imports students from a file
+    public static void ImportFromFile() {
+        System.out.println("Enter the file path to import student data from:");
+
+        String filePath = keyboard.nextLine();
+        File file = new File(filePath);
+
+        try {
+            Scanner fileScanner = new Scanner(file);
+            
+            while (fileScanner.hasNextLine())
+            {
+                String student = fileScanner.nextLine();
+
+                // int id
+                // string name present, add student
+                // sms.addStudent(id, name);
+                // else if name, subject
+                // sms.AddStudent(id, name, subject, grade);
+                // System.out.println("Added student with grades: " + name);
+                // else invalid format
+            }
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + filePath);
+        } catch (Exception e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
     }
 }

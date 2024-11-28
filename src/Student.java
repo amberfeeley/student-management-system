@@ -6,17 +6,6 @@ public class Student
     private int numOfSubjects;
 
     /**
-     * no-arg constructor initializes student fields to be empty
-     */
-    public Student()
-    {
-        studentID = 0;
-        name = "";
-        numOfSubjects = 0;
-        subjects = new Subject[100]; // Student cannot have more than 100 classes
-    }
-
-    /**
      * Constructor with arguments to initialize student
      * @param id stores studentID
      * @param name stores student's name

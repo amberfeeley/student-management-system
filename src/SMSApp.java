@@ -7,7 +7,8 @@ public class SMSApp {
     public static void main(String[] args)
     {
         int input = -1;
-
+        System.out.println("Welcome to the Student Management System!");
+        
         do
         {
             NavMenu();
@@ -48,7 +49,6 @@ public class SMSApp {
 
     public static void NavMenu()
     {
-        System.out.println("Welcome to the Student Management System!");
         System.out.println("Navigate by entering the corresponding key.");
         System.out.println("1: Add Student");
         System.out.println("2: Remove Student");
@@ -73,54 +73,51 @@ public class SMSApp {
         System.out.println("1: Add a student without grades.");
         System.out.println("2: Add a student with grades.");
 
-        // get user input
-        int input = keyboard.nextInt();
-        keyboard.nextLine();
-        String name = "";
-        int id = 0;
-
         try
         {
-            System.out.println("Enter student name:");
-            name = keyboard.nextLine(); //Used nextLine in case there are spaces in the name
+            // get user input
+            int input = keyboard.nextInt();
             keyboard.nextLine();
-            id = keyboard.nextInt();
-            keyboard.nextLine(); //I read its a good idea to add an extra nextline after a nextInt. Something about clearing some sort of buffer to avoid issues.
+            System.out.println("Enter student name: ");
+            String name = keyboard.nextLine(); //Used nextLine in case there are spaces in the name
+            System.out.println("Enter student ID: ");
+            int id = keyboard.nextInt();
+            keyboard.nextLine(); // Clears buffer
+
+            //Switch statement to determine which method to use
+            switch(input)
+            { 
+                case 1: //student without grades
+                    sms.AddStudent(id, name); //calling the AddStudent Method from Student Mgmt System file.
+                    break;
+                case 2: //student with grades
+                    try
+                    {
+                        System.out.println("Enter subject: ");
+                        String subject = keyboard.nextLine();
+                        System.out.println("Enter grade: ");
+                        int grade = keyboard.nextInt();
+
+                        //calling method to add student with all them parameters
+                        sms.AddStudent(id, name, subject, grade);
+                        break;
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println("Invalid input, please try again.");
+                        keyboard.nextLine();
+                    }
+
+                default:
+                    System.out.println("Invalid option. Returning to main menu.");
+                    break;
+            }
         }
         catch (Exception e)
         {
             System.out.println("Invalid input, please try again.");
             keyboard.nextLine();
             return; // Exits method given invalid input
-        }
-
-        //Switch statement to determine which method to use
-        switch(input)
-        { 
-            case 1: //student without grades
-                sms.AddStudent(id, name); //calling the AddStudent Method from Student Mgmt System file.
-                break;
-            case 2: //student with grades
-                try
-                {
-                    System.out.println("Enter subject: ");
-                    String subject = keyboard.nextLine();
-                    System.out.println("Enter grade: ");
-                    int grade = keyboard.nextInt();
-
-                    //calling method to add student with all them parameters
-                    sms.AddStudent(id, name, subject, grade);
-                    break;
-                }
-                catch (Exception e)
-                {
-                    System.out.println("Invalid input, please try again.");
-                    keyboard.nextLine();
-                }
-
-            default:
-                System.out.println("Invalid option. Returning to main menu.");
-                break;
         }
       
     }
@@ -145,28 +142,63 @@ public class SMSApp {
     {
         try
         {
-            System.out.println("Enter current student name: ");
+            System.out.println("You have chosen to update a student's records.");
+            System.out.println("Select an option:");
+            System.out.println("1: Add subject without grades.");
+            System.out.println("2: Add a subject with grades.");
+            System.out.println("3: Add a grade to a subject");
+            System.out.println("4: Update a grade in a subject.");
+            System.out.println("5: Update a student's name, ID, and grade in a subject.");
+
+            // input
+            int input = keyboard.nextInt();
+            keyboard.nextLine();
+            System.out.println("Enter student name: ");
             String studentName = keyboard.nextLine();
-            System.out.println("Enter updated student name: ");
-            String updatedName = keyboard.nextLine();
-            System.out.println("Enter updated student id: ");
-            int id = keyboard.nextInt();
-            keyboard.nextLine();
-            System.out.println("Enter student subject to update: ");
-            String subjectName = keyboard.nextLine();
-            System.out.println("Enter updated student grade: ");
-            int grade = keyboard.nextInt();
-            keyboard.nextLine();
 
+            switch(input)
+            {
+                case 1:
+                    sms.AddSubject();
+                    break;
+                case 2:
+                    sms.AddSubjectAndGrade();
+                    break;
+                case 3:
+                    sms.AddGrade();
+                    break;
+                case 4:
+                    sms.UpdateGrade();
+                    break;
+                case 5:
+                    // get updated info
+                    System.out.println("Enter updated student name: ");
+                    String updatedName = keyboard.nextLine();
+                    System.out.println("Enter updated student ID: ");
+                    int id = keyboard.nextInt();
+                    keyboard.nextLine();
+                    System.out.println("Enter student subject to update: ");
+                    String subjectName = keyboard.nextLine();
+                    System.out.println("Enter updated student grade: ");
+                    int grade = keyboard.nextInt();
+                    keyboard.nextLine();
 
-            sms.UpdateStudentRecords(id, studentName, subjectName, grade, updatedName);
+                    // update Student's records
+                    sms.UpdateStudentRecords(id, studentName, subjectName, grade, updatedName);
+                    break;
+                default:
+                    System.out.println("Invalid option. Returning to main menu.");
+                    break;
+            }
         }
         catch (Exception e)
         {
             System.out.println("Invalid input, please try again.");
             keyboard.nextLine();
+            return; // Exits method given invalid input
         }
     }
+
     public static void TrackStudentGrades()
     {
         try

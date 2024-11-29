@@ -1,62 +1,42 @@
 import java.io.*;
+import java.util.ArrayList;
 
 public class StudentMgmtSystem
 {
-    private Student[] students;
-    private int numOfStudents;
+    private ArrayList<Student> students;
 
-    /** No arg Constructor for StudentMgmtSystem
-     * Allows a maximum of 100 students
+    /** 
+     * No arg Constructor for StudentMgmtSystem
+     * Fliexible 
      * initializes student count to 0
     */
-    public StudentMgmtSystem()
+    public StudentMgmtSystem() 
     {
-        students = new Student[100];
-        numOfStudents = 0;
+        students = new ArrayList<>();
     }
 
-    public void AddStudent(int id, String name)
+    // Add a student without grades
+    public void AddStudent(int id, String name) 
     {
-        if (numOfStudents < 100)
-        {
-            students[numOfStudents] = new Student(id, name);
-            numOfStudents++;
-            System.out.println("Student " + name + " has been added.");
-        }
-        else
-        {
-            System.out.println("Unable to add more students.");
-        }
+        students.add(new Student(id, name));
+        System.out.println("Student " + name + " has been added.");
     }
     
-    public void AddStudent(int id, String studentName, String subjectName, int grade)
+    // Add a student with grades
+    public void AddStudent(int id, String name, String subjectName, int grade) 
     {
-        if (numOfStudents < 100)
-        {
-            students[numOfStudents] = new Student(id, studentName, subjectName, grade);
-            numOfStudents++;
-            System.out.println("Student " + studentName + " has been added.");
-        }
-        else
-        {
-            System.out.println("Unable to add more students.");
-        }
+        students.add(new Student(id, name, subjectName, grade));
+        System.out.println("Student " + name + " with subject " + subjectName + " has been added.");
     }
 
-    public void RemoveStudent(String name)
+    // Remove a student by name
+    public void RemoveStudent(String name) 
     {
-        for (int i = 0; i < numOfStudents; i++)
+        for (int i = 0; i < students.size(); i++) 
         {
-            if (students[i].getName().equals(name))
+            if (students.get(i).getName().equalsIgnoreCase(name)) 
             {
-                // shift array over by one
-                for (int j = i+1; j < numOfStudents; j++)
-                {
-                    students[j-1] = students[j];
-                }
-                // clear last spot
-                students[numOfStudents - 1] = null;
-                numOfStudents--;
+                students.remove(i);
                 System.out.println("Student " + name + " has been removed.");
                 return;
             }
@@ -69,143 +49,157 @@ public class StudentMgmtSystem
      * @param name finds student by name
      * @param choice to choose choice in switch
      */
-    public void UpdateStudentRecords(int id, String studentName, String subjectName, int grade, String updatedName)
+    public void UpdateStudentRecords(int id, String oldName, String subjectName, int grade, String newName) 
     {
-        for (int i = 0; i < numOfStudents; i++)
+        for (Student student : students) 
         {
-            if (students[i].getName().equals(studentName))
+            if (student.getName().equalsIgnoreCase(oldName)) 
             {
-                students[i].setID(id);
-                students[i].setName(updatedName);
-                students[i].setSubjectGrade(subjectName, grade);
+                student.setID(id);
+                student.setName(newName);
+                student.setSubjectGrade(subjectName, grade);
+                System.out.println("Student " + oldName + " has been updated.");
                 return;
             }
         }
-        System.out.println("Unable to locate " + studentName + " to update records.");
+        System.out.println("Unable to locate student with name " + oldName);
     }
 
-    public void TrackStudentGrades(String name)
+    // Add a subject for a student
+    public void AddSubject(String studentName, String subjectName) 
     {
-        for (int i = 0; i < numOfStudents; i++)
+        for (Student student : students) 
         {
-            if (students[i].getName().equals(name))
+            if (student.getName().equalsIgnoreCase(studentName)) 
             {
-                System.out.println(students[i].toString());
+                student.addSubject(subjectName);
+                System.out.println("Subject " + subjectName + " has been added for " + studentName);
                 return;
             }
         }
-        System.out.println("Unable to locate " + name + ".");
+        System.out.println("Unable to locate student with name " + studentName);
+    }
+
+    // Add a subject and grade for a student
+    public void AddSubjectAndGrade(String studentName, String subjectName, int grade) {
+        for (Student student : students) 
+        {
+            if (student.getName().equalsIgnoreCase(studentName)) 
+            {
+                student.addSubject(subjectName, grade);
+                System.out.println("Subject " + subjectName + " with grade " + grade + " has been added for " + studentName);
+                return;
+            }
+        }
+        System.out.println("Unable to locate student with name " + studentName);
+    }
+
+    // Track student grades
+    public void TrackStudentGrades(String name) 
+    {
+        for (Student student : students) 
+        {
+            if (student.getName().equalsIgnoreCase(name)) 
+            {
+                System.out.println(student);
+                return;
+            }
+        }
+        System.out.println("Unable to locate student with name " + name);
     }
     
-    public void GenerateReports() throws FileNotFoundException
+    // Generate reports
+    public void GenerateReports() throws FileNotFoundException 
     {
-        if (numOfStudents == 0)
+        if (students.isEmpty())
         {
             System.out.println("Unable to calculate average. No students in the system.");
+            return;
         }
-        else 
+
+        double avg = 0.0;
+        Student highestPerformer = students.get(0);
+        Student lowestPerformer = students.get(0);
+
+        for (Student student : students) 
         {
-            double highestGrade = students[0].CalculateAvgGrade();
-            Student highestPerformer = students[0];
-            double lowest = students[0].CalculateAvgGrade();
-            Student lowestPerformer = students[0];
-            double current;
-            double avg;
-            double sum = 0;
+            double average = student.CalculateAvgGrade();
+            avg += average;
 
-            for (int i = 0; i < numOfStudents; i++)
+            if (average > highestPerformer.CalculateAvgGrade()) 
             {
-                current = students[i].CalculateAvgGrade();
-                sum += current;
-                if (highestGrade < current)
-                {
-                    highestGrade = current;
-                    highestPerformer = students[i];
-                }
-                else if (lowest > current)
-                {
-                    lowest = current;
-                    lowestPerformer = students[i];
-                }
-            };
-            avg = sum / numOfStudents;
-
-            try
-            {
-                // Create output File
-                File reportFile = new File("StudentGrades.txt");
-                PrintWriter outputFile = new PrintWriter((reportFile));
-
-                outputFile.write("Class Report\na");
-                outputFile.write("\nClass average grade: " + avg);
-                outputFile.write("\nThe highest performer is " + highestPerformer.toString());
-                outputFile.write("\nThe lowest performer is " + lowestPerformer.toString());
-
-                SortStudentsByGrade();
-                for (int i = 0; i < numOfStudents; i++)
-                {
-                    students[i].toString();
-                    outputFile.write("\n");
-                }
-
-                outputFile.close();
+                highestPerformer = student;
             }
-            catch (FileNotFoundException e)
+            if (average < lowestPerformer.CalculateAvgGrade()) 
             {
-                System.out.println(e);
+                lowestPerformer = student;
             }
         }
+
+        avg /= students.size();
+
+        // Create output File
+        try 
+        {
+            File reportFile = new File("StudentGrades.txt");
+            PrintWriter outputFile = new PrintWriter((reportFile));
+
+            outputFile.write("Class Report\na");
+            outputFile.write("\nClass average grade: " + avg);
+            outputFile.write("\nThe highest performer is " + highestPerformer.toString());
+            outputFile.write("\nThe lowest performer is " + lowestPerformer.toString());
+
+            outputFile.write("\nStudents sorted by average grade:");
+            SortStudentsByGrade();
+            for (Student student : students) 
+            {
+                outputFile.write(student+ "\n");
+            }
+        }
+
+        System.out.println("Report has been generated and saved to 'StudentGrades.txt'.");
     }
 
-    // DOES NOT WORK YET
-    public void SortStudentsByGrade()
+
+    // Sorts students by their average grades using binary insertion sort.
+    public void SortStudentsByGrade() 
     {
-        // Selection sort method
-        for (int i = 0; i < numOfStudents - 1; i++)
+        for (int i = 1; i < students.size(); i++) 
         {
-            // Assume current index is highest grade
-            int maxIndex = i;
-            // compare current student to next in array
-            for (int j = i + 1; j < numOfStudents; j++)
+            Student key = students.get(i);
+            double keyAvg = key.CalculateAvgGrade();
+    
+            // Find the position to insert using binary search
+            int low = 0;
+            int high = i - 1;
+    
+            while (low <= high) 
             {
-                // Compare the average grades of the students
-                if (students[j].CalculateAvgGrade() > students[maxIndex].CalculateAvgGrade())
+                int mid = low + (high - low) / 2;
+                if (students.get(mid).CalculateAvgGrade() > keyAvg) 
                 {
-                    // If student j has a higher grade, update maxIndex
-                    maxIndex = j;
+                    low = mid + 1;
+                } 
+                else 
+                {
+                    high = mid - 1;
                 }
             }
-            // If maxIndex is different from current, swap the students
-            if (maxIndex != i) {
-                Student temp = students[i];
-                students[i] = students[maxIndex];
-                students[maxIndex] = temp;
-            }
-        }
-    }
-
-    public void AddSubject(String studentName, String subjectName)
-    {
-        for (int i = 0; i < numOfStudents; i++)
-        {
-            if (students[i].getName().equals(studentName))
+    
+            // Shift elements to make space for the key
+            for (int j = i - 1; j >= low; j--) 
             {
-                students[i].addSubject(subjectName);
+                students.set(j + 1, students.get(j));
             }
+    
+            // Insert the key at the correct position
+            students.set(low, key);
         }
+    
+        System.out.println("Students have been sorted by average grade in ascending order.");
     }
 
-    public void AddSubjectAndGrade(String studentName, String subjectName, int grade)
-    {
-        for (int i = 0; i < numOfStudents; i++)
-        {
-            if (students[i].getName().equals(studentName))
-            {
-                students[i].addSubject(subjectName, grade);
-            }
-        }
-    }
-
+    // Method to update a specific student's grade for a specific subject
     public void UpdateGrade(String studentName, String subjectName, int grade)
     {
         // TODO

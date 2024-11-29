@@ -1,4 +1,4 @@
-import java.io.PrintWriter;
+import java.io.*;
 
 public class StudentMgmtSystem
 {
@@ -97,7 +97,7 @@ public class StudentMgmtSystem
         System.out.println("Unable to locate " + name + ".");
     }
     
-    public void GenerateReports(PrintWriter outputFile)
+    public void GenerateReports() throws FileNotFoundException
     {
         if (numOfStudents == 0)
         {
@@ -130,24 +130,38 @@ public class StudentMgmtSystem
             };
             avg = sum / numOfStudents;
 
-            // This should be output in a file
-            outputFile.write("Class Report");
-            outputFile.write("\nClass average grade: " + avg);
-            outputFile.write("\nThe highest performer is " + highestPerformer.toString());
-            outputFile.write("\nThe lowest performer is " + lowestPerformer.toString());
-            SortStudentsByGrade();
-            for (Student student : students)
+            try
             {
-                student.toString();
-                outputFile.write("\n");
+                // Create output File
+                File reportFile = new File("StudentGrades.txt");
+                PrintWriter outputFile = new PrintWriter((reportFile));
+
+                outputFile.write("Class Report\na");
+                outputFile.write("\nClass average grade: " + avg);
+                outputFile.write("\nThe highest performer is " + highestPerformer.toString());
+                outputFile.write("\nThe lowest performer is " + lowestPerformer.toString());
+
+                SortStudentsByGrade();
+                for (int i = 0; i < numOfStudents; i++)
+                {
+                    students[i].toString();
+                    outputFile.write("\n");
+                }
+
+                outputFile.close();
+            }
+            catch (FileNotFoundException e)
+            {
+                System.out.println(e);
             }
         }
     }
 
+    // DOES NOT WORK YET
     public void SortStudentsByGrade()
     {
         // Selection sort method
-        for (int i = 0; i < numOfStudents; i++)
+        for (int i = 0; i < numOfStudents - 1; i++)
         {
             // Assume current index is highest grade
             int maxIndex = i;
@@ -191,12 +205,12 @@ public class StudentMgmtSystem
             }
         }
     }
-    public void AddGrade(String studentName, String subjectName, int grade)
-    {
-        // TODO
-    }
+
     public void UpdateGrade(String studentName, String subjectName, int grade)
     {
         // TODO
+        // find student
+        // find subject
+        // change grade
     }
 }

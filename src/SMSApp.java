@@ -148,11 +148,9 @@ public class SMSApp
         {
             System.out.println("You have chosen to update a student's records.");
             System.out.println("Select an option:");
-            System.out.println("1: Add subject without grades");
-            System.out.println("2: Add a subject with grades");
-            System.out.println("3: Add a grade to a subject");
-            System.out.println("4: Update a grade in a subject");
-            System.out.println("5: Update a student's name, ID, and grade in a subject");
+            System.out.println("1: Add a subject and grade");
+            System.out.println("2: Update a grade in a subject");
+            System.out.println("3: Update a student's name, ID, and grade in a subject");
 
             // input
             int input = keyboard.nextInt();
@@ -167,7 +165,10 @@ public class SMSApp
                 case 1:
                     System.out.println("Enter subject name: ");
                     subjectName = keyboard.nextLine();
-                    sms.AddSubject(studentName, subjectName);
+                    System.out.println("Enter grade: ");
+                    grade = keyboard.nextInt();
+                    keyboard.nextLine();
+                    sms.AddSubjectAndGrade(studentName, subjectName, grade);
                     break;
                 case 2:
                     System.out.println("Enter subject name: ");
@@ -175,25 +176,9 @@ public class SMSApp
                     System.out.println("Enter grade: ");
                     grade = keyboard.nextInt();
                     keyboard.nextLine();
-                    sms.AddSubjectAndGrade(studentName, subjectName, grade);
-                    break;
-                case 3:
-                    System.out.println("Enter subject name: ");
-                    subjectName = keyboard.nextLine();
-                    System.out.println("Enter grade: ");
-                    grade = keyboard.nextInt();
-                    keyboard.nextLine();
-                    sms.AddGrade(studentName, subjectName, grade);
-                    break;
-                case 4:
-                    System.out.println("Enter subject name: ");
-                    subjectName = keyboard.nextLine();
-                    System.out.println("Enter grade: ");
-                    grade = keyboard.nextInt();
-                    keyboard.nextLine();
                     sms.UpdateGrade(studentName, subjectName, grade);
                     break;
-                case 5:
+                case 3:
                     // get updated info
                     System.out.println("Enter updated student name: ");
                     String updatedName = keyboard.nextLine();
@@ -239,22 +224,10 @@ public class SMSApp
     }
 
     // Generates report with Avg class grade and highest/lowest performers
-    public static void GenerateReports()
+    public static void GenerateReports() throws FileNotFoundException
     {
-        try
-        {
-            File reportFile = new File("StudentGrades.txt");
-            PrintWriter outputFile = new PrintWriter((reportFile));
-
-            outputFile.write("Student Report\n");
-            sms.GenerateReports(outputFile);
-            outputFile.close();
-            System.out.println("Report has been generated and saved to \'StudentGrades.txt\'.");
-        }
-        catch (IOException e)
-        {
-            System.out.println("Error generating report: " + e.getMessage());
-        }
+        sms.GenerateReports();
+        System.out.println("Report has been generated and saved to \'StudentGrades.txt\'.");
     }
 
     // Imports students from a file

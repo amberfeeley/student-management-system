@@ -136,15 +136,15 @@ public class StudentMgmtSystem
                 File reportFile = new File("StudentGrades.txt");
                 PrintWriter outputFile = new PrintWriter((reportFile));
 
-                outputFile.write("Student Report\n");
-                outputFile.write("Class Report");
+                outputFile.write("Class Report\na");
                 outputFile.write("\nClass average grade: " + avg);
                 outputFile.write("\nThe highest performer is " + highestPerformer.toString());
                 outputFile.write("\nThe lowest performer is " + lowestPerformer.toString());
+
                 SortStudentsByGrade();
-                for (Student student : students)
+                for (int i = 0; i < numOfStudents; i++)
                 {
-                    student.toString();
+                    students[i].toString();
                     outputFile.write("\n");
                 }
 

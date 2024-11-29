@@ -3,10 +3,11 @@ public class Subject {
     private int grade;
 
     /**
-     * No-arg constructor initializes subject fields to be empty
+     * Constructor requires subject name
      */
-    public Subject() {
-        name = "";
+    public Subject(String name)
+    {
+        this.name = name;
         grade = 0;
     }
 

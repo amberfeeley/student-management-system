@@ -6,17 +6,6 @@ public class Student
     private int numOfSubjects;
 
     /**
-     * no-arg constructor initializes student fields to be empty
-     */
-    public Student()
-    {
-        studentID = 0;
-        name = "";
-        numOfSubjects = 0;
-        subjects = new Subject[100]; // Student cannot have more than 100 classes
-    }
-
-    /**
      * Constructor with arguments to initialize student
      * @param id stores studentID
      * @param name stores student's name
@@ -53,6 +42,24 @@ public class Student
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    /**
+     * Adds subject to student and maintains number of subjects count
+     * @param subjectName sets subject name
+     * @param grade stores student's grade in subject
+     */
+    public void addSubject(String subjectName)
+    {
+        if (numOfSubjects < 100)
+        {
+            subjects[numOfSubjects] = new Subject(subjectName);
+            numOfSubjects++;
+        }
+        else
+        {
+            System.out.println("Unable to add subject. Student cannot have more than 100 subjects.");
+        }
     }
 
     /**
@@ -130,7 +137,7 @@ public class Student
     {
         if (numOfSubjects == 0)
         {
-            System.out.println(" Unable to calculate " + name + " Average. No grades entered.");
+            System.out.println(" Unable to calculate " + name + " average. No grades entered.");
             return 0;
         }
         else 
@@ -150,7 +157,6 @@ public class Student
         StringBuilder studentInfo = new StringBuilder();
         studentInfo.append("Student Name: ").append(name).append("\n");
         studentInfo.append("Student ID: ").append(studentID).append("\n");
-        studentInfo.append("Subjects and Grades: \n");
 
         for (int i = 0; i < numOfSubjects; i++) {
             studentInfo.append(subjects[i].toString()).append("\n");

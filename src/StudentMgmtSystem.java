@@ -1,3 +1,5 @@
+import java.io.PrintWriter;
+
 public class StudentMgmtSystem
 {
     private Student[] students;
@@ -76,6 +78,7 @@ public class StudentMgmtSystem
                 students[i].setID(id);
                 students[i].setName(updatedName);
                 students[i].setSubjectGrade(subjectName, grade);
+                return;
             }
         }
         System.out.println("Unable to locate " + studentName + " to update records.");
@@ -94,12 +97,11 @@ public class StudentMgmtSystem
         System.out.println("Unable to locate " + name + ".");
     }
     
-    public void GenerateReports()
+    public void GenerateReports(PrintWriter outputFile)
     {
         if (numOfStudents == 0)
         {
             System.out.println("Unable to calculate average. No students in the system.");
-            return;
         }
         else 
         {
@@ -129,10 +131,72 @@ public class StudentMgmtSystem
             avg = sum / numOfStudents;
 
             // This should be output in a file
-            System.out.println("Class Report:");
-            System.out.println("Average grade: " + avg);
-            System.out.println("The highest performer is " + highestPerformer.toString());
-            System.out.println("The lowest performer is " + lowestPerformer.toString());
+            outputFile.write("Class Report");
+            outputFile.write("\nClass average grade: " + avg);
+            outputFile.write("\nThe highest performer is " + highestPerformer.toString());
+            outputFile.write("\nThe lowest performer is " + lowestPerformer.toString());
+            SortStudentsByGrade();
+            for (Student student : students)
+            {
+                student.toString();
+                outputFile.write("\n");
+            }
         }
+    }
+
+    public void SortStudentsByGrade()
+    {
+        // Selection sort method
+        for (int i = 0; i < numOfStudents; i++)
+        {
+            // Assume current index is highest grade
+            int maxIndex = i;
+            // compare current student to next in array
+            for (int j = i + 1; j < numOfStudents; j++)
+            {
+                // Compare the average grades of the students
+                if (students[j].CalculateAvgGrade() > students[maxIndex].CalculateAvgGrade())
+                {
+                    // If student j has a higher grade, update maxIndex
+                    maxIndex = j;
+                }
+            }
+            // If maxIndex is different from current, swap the students
+            if (maxIndex != i) {
+                Student temp = students[i];
+                students[i] = students[maxIndex];
+                students[maxIndex] = temp;
+            }
+        }
+    }
+
+    public void AddSubject(String studentName, String subjectName)
+    {
+        for (int i = 0; i < numOfStudents; i++)
+        {
+            if (students[i].getName().equals(studentName))
+            {
+                students[i].addSubject(subjectName);
+            }
+        }
+    }
+
+    public void AddSubjectAndGrade(String studentName, String subjectName, int grade)
+    {
+        for (int i = 0; i < numOfStudents; i++)
+        {
+            if (students[i].getName().equals(studentName))
+            {
+                students[i].addSubject(subjectName, grade);
+            }
+        }
+    }
+    public void AddGrade(String studentName, String subjectName, int grade)
+    {
+        // TODO
+    }
+    public void UpdateGrade(String studentName, String subjectName, int grade)
+    {
+        // TODO
     }
 }

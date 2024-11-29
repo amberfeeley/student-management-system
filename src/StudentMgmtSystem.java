@@ -202,9 +202,19 @@ public class StudentMgmtSystem
     // Method to update a specific student's grade for a specific subject
     public void UpdateGrade(String studentName, String subjectName, int grade)
     {
-        // TODO
-        // find student
-        // find subject
-        // change grade
+        for (int i = 0; i < numOfStudents; i++)
+        {
+            if (students[i].getName().equals(studentName))
+            {
+                try
+                {
+                    students[i].setSubjectGrade(subjectName, grade);
+                }
+                catch (Exception e)
+                {
+                    System.out.println("Unable to locate "+ subjectName + "for " + studentName);
+                }
+            }
+        }
     }
 }

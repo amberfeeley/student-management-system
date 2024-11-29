@@ -233,32 +233,34 @@ public class SMSApp
     // Imports students from a file
     public static void ImportStudentsFromFile()
     {
-        System.out.println("Data must have student ID then student name.");
+        System.out.println("Data must be in order of student ID, student name, subject, grade");
         System.out.println("Enter the file path to import student data from:");
-
-        String filePath = keyboard.nextLine();
-        File file = new File(filePath);
 
         try
         {
+            String filePath = keyboard.nextLine();
+            File file = new File(filePath);
             Scanner fileScanner = new Scanner(file);
             
             while (fileScanner.hasNextLine())
             {
-                // assume first line is id
-                int id = keyboard.nextInt();
-                keyboard.nextLine();
-
+                // first line is id
+                int id = Integer.parseInt(fileScanner.nextLine());
                 // second line is name
                 String studentName = fileScanner.nextLine();
-                sms.AddStudent(id, studentName);
+                // third line is subject
+                String subjectName = fileScanner.nextLine();
+                // fourth line is grade
+                int grade = Integer.parseInt(fileScanner.nextLine());
+
+                sms.AddStudent(id, studentName, subjectName, grade);
                 System.out.println("Added student " + studentName);
             }
             fileScanner.close();
         } 
         catch (FileNotFoundException e)
         {
-            System.out.println("File not found: " + filePath);
+            System.out.println("File not found: ");
         } 
         catch (Exception e)
         {

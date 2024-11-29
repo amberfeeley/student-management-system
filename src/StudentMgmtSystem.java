@@ -133,10 +133,11 @@ public class StudentMgmtSystem
             System.out.print("Class average grade: " + avg);
             System.out.print("\nThe highest performer is " + highestPerformer.toString());
             System.out.print("\nThe lowest performer is " + lowestPerformer.toString());
-            sortStudentsByGrade();
+            SortStudentsByGrade();
             for (Student student : students)
             {
                 student.toString();
+                System.out.println();
             }
         }
     }

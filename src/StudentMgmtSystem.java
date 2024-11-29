@@ -144,7 +144,7 @@ public class StudentMgmtSystem
             File reportFile = new File("StudentGrades.txt");
             PrintWriter outputFile = new PrintWriter((reportFile));
 
-            outputFile.write("Class Report\na");
+            outputFile.write("Class Report\n");
             outputFile.write("\nClass average grade: " + avg);
             outputFile.write("\nThe highest performer is " + highestPerformer.toString());
             outputFile.write("\nThe lowest performer is " + lowestPerformer.toString());
@@ -153,11 +153,15 @@ public class StudentMgmtSystem
             SortStudentsByGrade();
             for (Student student : students) 
             {
-                outputFile.write(student+ "\n");
+                outputFile.write(student.toString() + "\n");
             }
+            outputFile.close();
+            System.out.println("Report has been generated and saved to 'StudentGrades.txt'.");
         }
-
-        System.out.println("Report has been generated and saved to 'StudentGrades.txt'.");
+        catch(Exception e)
+        {
+            System.out.println("Unable to generate student report.");
+        }
     }
 
 
@@ -202,13 +206,13 @@ public class StudentMgmtSystem
     // Method to update a specific student's grade for a specific subject
     public void UpdateGrade(String studentName, String subjectName, int grade)
     {
-        for (int i = 0; i < numOfStudents; i++)
+        for (Student student : students) 
         {
-            if (students[i].getName().equals(studentName))
+            if (student.getName().equalsIgnoreCase(studentName)) 
             {
                 try
                 {
-                    students[i].setSubjectGrade(subjectName, grade);
+                    student.setSubjectGrade(subjectName, grade);
                 }
                 catch (Exception e)
                 {
@@ -216,5 +220,6 @@ public class StudentMgmtSystem
                 }
             }
         }
+        System.out.println("Unable to locate " + studentName);
     }
 }

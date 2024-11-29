@@ -227,7 +227,6 @@ public class SMSApp
     public static void GenerateReports() throws FileNotFoundException
     {
         sms.GenerateReports();
-        System.out.println("Report has been generated and saved to \'StudentGrades.txt\'.");
     }
 
     // Imports students from a file

@@ -1,12 +1,11 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.*;
 
 public class SMSApp {
 
     private static Scanner keyboard = new Scanner(System.in);
     private static StudentMgmtSystem sms = new StudentMgmtSystem();
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
         int input = -1;
         System.out.println("Welcome to the Student Management System!");
@@ -220,8 +219,20 @@ public class SMSApp {
     // Generates report with Avg class grade and highest/lowest performers
     public static void GenerateReports()
     {
-        // add outfile?
-        sms.GenerateReports();
+        try
+        {
+            File reportFile = new File("StudentGrades.txt");
+            PrintWriter writer = new PrintWriter((reportFile));
+
+            writer.write("Student Report\n");
+            sms.GenerateReports();
+            writer.close();
+            System.out.println("Report has been generated and saved to 'student_report.txt'.");
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error generating report: " + e.getMessage());
+        }
     }
 
     // Imports students from a file

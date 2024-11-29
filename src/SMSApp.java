@@ -35,6 +35,9 @@ public class SMSApp {
                     case 5:
                         GenerateReports();
                         break;
+                    case 6:
+                        ImportFromFile();
+                        break;
                     default:
                         ExitMessage();
                         break;
@@ -242,7 +245,8 @@ public class SMSApp {
         String filePath = keyboard.nextLine();
         File file = new File(filePath);
 
-        try {
+        try
+        {
             Scanner fileScanner = new Scanner(file);
             
             while (fileScanner.hasNextLine())
@@ -250,17 +254,22 @@ public class SMSApp {
                 String student = fileScanner.nextLine();
 
                 // int id
-                // string name present, add student
+                // string name
                 // sms.addStudent(id, name);
-                // else if name, subject
+                // string subject
+                // int grade
                 // sms.AddStudent(id, name, subject, grade);
                 // System.out.println("Added student with grades: " + name);
                 // else invalid format
             }
             fileScanner.close();
-        } catch (FileNotFoundException e) {
+        } 
+        catch (FileNotFoundException e)
+        {
             System.out.println("File not found: " + filePath);
-        } catch (Exception e) {
+        } 
+        catch (Exception e)
+        {
             System.out.println("Error reading file: " + e.getMessage());
         }
     }

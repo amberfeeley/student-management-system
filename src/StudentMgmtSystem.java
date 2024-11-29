@@ -76,6 +76,7 @@ public class StudentMgmtSystem
                 students[i].setID(id);
                 students[i].setName(updatedName);
                 students[i].setSubjectGrade(subjectName, grade);
+                return;
             }
         }
         System.out.println("Unable to locate " + studentName + " to update records.");
@@ -99,7 +100,6 @@ public class StudentMgmtSystem
         if (numOfStudents == 0)
         {
             System.out.println("Unable to calculate average. No students in the system.");
-            return;
         }
         else 
         {
@@ -129,10 +129,40 @@ public class StudentMgmtSystem
             avg = sum / numOfStudents;
 
             // This should be output in a file
-            System.out.println("Class Report:");
-            System.out.println("Average grade: " + avg);
-            System.out.println("The highest performer is " + highestPerformer.toString());
-            System.out.println("The lowest performer is " + lowestPerformer.toString());
+            System.out.println("Class Report");
+            System.out.print("Class average grade: " + avg);
+            System.out.print("\nThe highest performer is " + highestPerformer.toString());
+            System.out.print("\nThe lowest performer is " + lowestPerformer.toString());
+            sortStudentsByGrade();
+            for (Student student : students)
+            {
+                student.toString();
+            }
+        }
+    }
+
+    public void SortStudentsByGrade()
+    {
+        // Selection sort method
+        for (int i = 0; i < numOfStudents; i++)
+        {
+            // Assume current index is highest grade
+            int maxIndex = i;
+            for (int j = i + 1; j < numOfStudents; j++)
+            {
+                // Compare the average grades of the students
+                if (students[j].CalculateAvgGrade() > students[maxIndex].CalculateAvgGrade())
+                {
+                    // If student j has a higher grade, update maxIndex
+                    maxIndex = j;
+                }
+            }
+            // If maxIndex is different from current, swap the students
+            if (maxIndex != i) {
+                Student temp = students[i];
+                students[i] = students[maxIndex];
+                students[maxIndex] = temp;
+            }
         }
     }
 }

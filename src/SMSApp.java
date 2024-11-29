@@ -1,8 +1,8 @@
 import java.util.Scanner;
 import java.io.*;
 
-public class SMSApp {
-
+public class SMSApp
+{
     private static Scanner keyboard = new Scanner(System.in);
     private static StudentMgmtSystem sms = new StudentMgmtSystem();
     public static void main(String[] args) throws IOException
@@ -36,7 +36,7 @@ public class SMSApp {
                         GenerateReports();
                         break;
                     case 6:
-                        ImportFromFile();
+                        ImportStudentsFromFile();
                         break;
                     default:
                         ExitMessage();
@@ -58,8 +58,8 @@ public class SMSApp {
         System.out.println("2: Remove Student");
         System.out.println("3: Update Student Records");
         System.out.println("4: Track Student Grades");
-        System.out.println("5: Calculate Student Grade Averages");
-        System.out.println("6: Generate Highest and Lowest Grade Student Reports");
+        System.out.println("5: Generate Student Reports");
+        System.out.println("6: Import Student Data From File");
         System.out.println("Enter any other key to exit.");
     }
 
@@ -148,31 +148,50 @@ public class SMSApp {
         {
             System.out.println("You have chosen to update a student's records.");
             System.out.println("Select an option:");
-            System.out.println("1: Add subject without grades.");
-            System.out.println("2: Add a subject with grades.");
+            System.out.println("1: Add subject without grades");
+            System.out.println("2: Add a subject with grades");
             System.out.println("3: Add a grade to a subject");
-            System.out.println("4: Update a grade in a subject.");
-            System.out.println("5: Update a student's name, ID, and grade in a subject.");
+            System.out.println("4: Update a grade in a subject");
+            System.out.println("5: Update a student's name, ID, and grade in a subject");
 
             // input
             int input = keyboard.nextInt();
             keyboard.nextLine();
             System.out.println("Enter student name: ");
             String studentName = keyboard.nextLine();
+            String subjectName;
+            int grade;
 
             switch(input)
             {
                 case 1:
-                    sms.AddSubject();
+                    System.out.println("Enter subject name: ");
+                    subjectName = keyboard.nextLine();
+                    sms.AddSubject(studentName, subjectName);
                     break;
                 case 2:
-                    sms.AddSubjectAndGrade();
+                    System.out.println("Enter subject name: ");
+                    subjectName = keyboard.nextLine();
+                    System.out.println("Enter grade: ");
+                    grade = keyboard.nextInt();
+                    keyboard.nextLine();
+                    sms.AddSubjectAndGrade(studentName, subjectName, grade);
                     break;
                 case 3:
-                    sms.AddGrade();
+                    System.out.println("Enter subject name: ");
+                    subjectName = keyboard.nextLine();
+                    System.out.println("Enter grade: ");
+                    grade = keyboard.nextInt();
+                    keyboard.nextLine();
+                    sms.AddGrade(studentName, subjectName, grade);
                     break;
                 case 4:
-                    sms.UpdateGrade();
+                    System.out.println("Enter subject name: ");
+                    subjectName = keyboard.nextLine();
+                    System.out.println("Enter grade: ");
+                    grade = keyboard.nextInt();
+                    keyboard.nextLine();
+                    sms.UpdateGrade(studentName, subjectName, grade);
                     break;
                 case 5:
                     // get updated info
@@ -182,9 +201,9 @@ public class SMSApp {
                     int id = keyboard.nextInt();
                     keyboard.nextLine();
                     System.out.println("Enter student subject to update: ");
-                    String subjectName = keyboard.nextLine();
+                    subjectName = keyboard.nextLine();
                     System.out.println("Enter updated student grade: ");
-                    int grade = keyboard.nextInt();
+                    grade = keyboard.nextInt();
                     keyboard.nextLine();
 
                     // update Student's records
@@ -225,12 +244,12 @@ public class SMSApp {
         try
         {
             File reportFile = new File("StudentGrades.txt");
-            PrintWriter writer = new PrintWriter((reportFile));
+            PrintWriter outputFile = new PrintWriter((reportFile));
 
-            writer.write("Student Report\n");
-            sms.GenerateReports();
-            writer.close();
-            System.out.println("Report has been generated and saved to 'student_report.txt'.");
+            outputFile.write("Student Report\n");
+            sms.GenerateReports(outputFile);
+            outputFile.close();
+            System.out.println("Report has been generated and saved to \'StudentGrades.txt\'.");
         }
         catch (IOException e)
         {
@@ -239,7 +258,9 @@ public class SMSApp {
     }
 
     // Imports students from a file
-    public static void ImportStudentsFromFile() {
+    public static void ImportStudentsFromFile()
+    {
+        System.out.println("Data must have student ID then student name.");
         System.out.println("Enter the file path to import student data from:");
 
         String filePath = keyboard.nextLine();
@@ -251,13 +272,14 @@ public class SMSApp {
             
             while (fileScanner.hasNextLine())
             {
-                String student = fileScanner.nextLine();
-
+                // assume first line is id
                 int id = keyboard.nextInt();
                 keyboard.nextLine();
-                String name = keyboard.nextLine();
-                sms.AddStudent(id, name);
-                System.out.println("Added student " + name);
+
+                // second line is name
+                String studentName = fileScanner.nextLine();
+                sms.AddStudent(id, studentName);
+                System.out.println("Added student " + studentName);
             }
             fileScanner.close();
         } 

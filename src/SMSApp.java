@@ -239,7 +239,7 @@ public class SMSApp {
     }
 
     // Imports students from a file
-    public static void ImportFromFile() {
+    public static void ImportStudentsFromFile() {
         System.out.println("Enter the file path to import student data from:");
 
         String filePath = keyboard.nextLine();
@@ -253,14 +253,11 @@ public class SMSApp {
             {
                 String student = fileScanner.nextLine();
 
-                // int id
-                // string name
-                // sms.addStudent(id, name);
-                // string subject
-                // int grade
-                // sms.AddStudent(id, name, subject, grade);
-                // System.out.println("Added student with grades: " + name);
-                // else invalid format
+                int id = keyboard.nextInt();
+                keyboard.nextLine();
+                String name = keyboard.nextLine();
+                sms.AddStudent(id, name);
+                System.out.println("Added student " + name);
             }
             fileScanner.close();
         } 
